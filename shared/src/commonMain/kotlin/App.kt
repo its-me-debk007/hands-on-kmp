@@ -16,11 +16,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun App() {
     MaterialTheme {
-        val greetingText by remember { mutableStateOf("Hello, KMP!") }
+        var greetingText by remember { mutableStateOf("Hello, KMP!") }
         var showImage by remember { mutableStateOf(false) }
         val repository by remember { mutableStateOf(Repository()) }
 
@@ -28,7 +31,9 @@ fun App() {
             Button(
                 onClick = {
                     showImage = !showImage
-                    repository.makeApiCall()
+                    GlobalScope.launch(Dispatchers.Main) {
+                        greetingText = repository.makeApiCall().toString()
+                    }
                 },
                 colors = ButtonDefaults.buttonColors(Color.Magenta)
             ) {

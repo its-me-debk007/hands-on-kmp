@@ -1,4 +1,3 @@
-import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -10,6 +9,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.async
 import kotlinx.serialization.json.Json
 import model.MoviesDTO
+import model.Result
 
 class Repository {
     private val httpClient = HttpClient {
@@ -20,20 +20,18 @@ class Repository {
         }
     }.also { initLogger() }
 
-    suspend fun makeApiCall(): MoviesDTO {
-        val responseCode = GlobalScope.async(Dispatchers.IO) {
-            val response: MoviesDTO =
+    suspend fun makeApiCall(): List<Result> {
+        val response = GlobalScope.async(Dispatchers.IO) {
+            val body: MoviesDTO =
                 httpClient.get(BASE_URL + "discover/movie") {
                     url {
                         parameters.append("api_key", API_KEY)
                     }
                 }.body()
 
-            Napier.d(response.toString())
-            response
+            body.results
         }
 
-        return responseCode.await()
-
+        return response.await()
     }
 }

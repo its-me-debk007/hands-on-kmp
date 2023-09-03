@@ -33,6 +33,8 @@ kotlin {
                 implementation(compose.components.resources)
                 // Kamel
                 implementation("media.kamel:kamel-image:0.7.2")
+                // Coroutines
+                // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 // Ktor
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
@@ -68,7 +70,9 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.common)
                 // Ktor Engine
-                implementation("io.ktor:ktor-client-android:$ktorVersion")
+                implementation("io.ktor:ktor-client-java:$ktorVersion")
+                // Coroutines
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.7.3")
             }
         }
     }

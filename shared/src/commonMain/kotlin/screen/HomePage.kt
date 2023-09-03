@@ -2,7 +2,9 @@ package screen
 
 import DarkOrange
 import IMG_BASE_URL
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,33 +38,44 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun HomePage(movies: List<Result>) {
-    LazyVerticalGrid(
-        modifier = Modifier.fillMaxSize().padding(8.dp, 16.dp, 8.dp),
-        columns = GridCells.Adaptive(168.dp)
-    ) {
-        items(movies.size) { MovieCard(movies[it]) }
+
+    AnimatedVisibility(movies.isNotEmpty(), enter = fadeIn() + slideInVertically { 100 }) {
+        Column {
+            Text(
+                "Discover",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 24.dp, start = 16.dp)
+            )
+
+            LazyVerticalGrid(
+                modifier = Modifier.fillMaxWidth().padding(8.dp, 16.dp, 8.dp),
+                columns = GridCells.Adaptive(168.dp)
+            ) {
+                items(movies.size) { MovieCard(movies[it]) }
+            }
+        }
     }
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
-fun MovieCard(movie: Result, modifier: Modifier = Modifier) {
+fun MovieCard(
+    movie: Result,
+    isFullLengthCard: Boolean = false,
+    modifier: Modifier = Modifier
+) {
     Card(modifier.padding(8.dp, 0.dp, 8.dp, 16.dp), shape = RoundedCornerShape(10.dp)) {
+        val imgUrl = if (isFullLengthCard) movie.backdrop_path else movie.poster_path
+
         Box(Modifier.fillMaxWidth()) {
             KamelImage(
-                asyncPainterResource(IMG_BASE_URL + "/w300" + movie.poster_path),
+                asyncPainterResource("$IMG_BASE_URL/w300$imgUrl"),
                 contentDescription = movie.title,
                 contentScale = ContentScale.FillBounds,
-                onLoading = { _ ->
-                    Image(
-                        painterResource("placeholder.jpg"),
-                        null,
-                        Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop
-                    )
-                },
-                animationSpec = tween(),
-                modifier = Modifier.height(220.dp)
+                onLoading = { ImagePlaceholder() },
+                onFailure = { ImagePlaceholder() },
+                modifier = Modifier.height(if (isFullLengthCard) 168.dp else 220.dp)
             )
 
             Text(
@@ -89,7 +102,7 @@ fun MovieCard(movie: Result, modifier: Modifier = Modifier) {
                     color = Color.White,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(horizontal = 8.dp)
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
                 )
 
                 Row(
@@ -97,16 +110,16 @@ fun MovieCard(movie: Result, modifier: Modifier = Modifier) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        movie.release_date,
+                        if (isFullLengthCard) movie.overview else movie.release_date,
                         maxLines = 2,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 11.sp,
+                        fontWeight = if (isFullLengthCard) FontWeight.Normal else FontWeight.SemiBold,
                         overflow = TextOverflow.Ellipsis,
                         color = Color.White
                     )
-                    Text(
+
+                    if (!isFullLengthCard) Text(
                         "(${movie.original_language})",
-                        maxLines = 2,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.SemiBold,
                         overflow = TextOverflow.Ellipsis,
@@ -116,4 +129,15 @@ fun MovieCard(movie: Result, modifier: Modifier = Modifier) {
             }
         }
     }
+}
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+fun ImagePlaceholder() {
+    Image(
+        painterResource("placeholder.jpg"),
+        null,
+        Modifier.fillMaxSize(),
+        contentScale = ContentScale.Crop
+    )
 }

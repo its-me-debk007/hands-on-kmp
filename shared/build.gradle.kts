@@ -33,15 +33,17 @@ kotlin {
                 implementation(compose.components.resources)
                 // Kamel
                 implementation("media.kamel:kamel-image:0.7.2")
-                // Coroutines
-                // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 // Ktor
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                // Kotlinx Serialization
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
                 // Napier
                 implementation ("io.github.aakira:napier:2.6.1")
+                // Moko
+                api("dev.icerock.moko:mvvm-core:0.16.1") // only ViewModel, EventsDispatcher, Dispatchers.UI
+                api("dev.icerock.moko:mvvm-compose:0.16.1") // api mvvm-core, getViewModel for Compose Multiplatfrom
             }
         }
         val androidMain by getting {

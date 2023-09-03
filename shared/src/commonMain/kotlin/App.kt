@@ -1,6 +1,3 @@
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import model.Result
-import screen.HomePage
+import screen.SearchPage
 
 @Composable
 fun App() {
@@ -23,16 +20,14 @@ fun App() {
         val repository by remember { mutableStateOf(Repository()) }
 
         LaunchedEffect(null) {
-            movies = repository.makeApiCall()
+            movies = repository.getMovies()
         }
 
         Column(
             Modifier.fillMaxSize().background(Background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            AnimatedVisibility(movies.isNotEmpty(), enter = fadeIn() + slideInVertically { 100 }) {
-                HomePage(movies)
-            }
+            SearchPage(repository)
         }
     }
 }

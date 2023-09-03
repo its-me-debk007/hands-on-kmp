@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.launch
 import model.Result
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -60,6 +61,7 @@ fun SearchPage(repository: Repository) {
             if (query.isNotBlank()) {
                 coroutineScope.launch {
                     movies = repository.searchMovies(query.trim())
+                    Napier.d { movies[0].toString() }
                 }
             }
         })

@@ -84,20 +84,20 @@ fun MovieCard(
     modifier: Modifier = Modifier
 ) {
     Card(modifier.padding(8.dp, 0.dp, 8.dp, 16.dp), shape = RoundedCornerShape(10.dp)) {
-        val imgUrl = if (isFullLengthCard) movie.backdrop_path else movie.poster_path
+        val imgUrl = if (isFullLengthCard) "/w500${movie.backdrop_path}" else "/w300${movie.poster_path}"
 
         Box(Modifier.fillMaxWidth()) {
             KamelImage(
-                asyncPainterResource("$IMG_BASE_URL/w300$imgUrl"),
+                asyncPainterResource("$IMG_BASE_URL$imgUrl"),
                 contentDescription = movie.title,
                 contentScale = ContentScale.FillBounds,
                 onLoading = { ImagePlaceholder() },
                 onFailure = { ImagePlaceholder() },
-                modifier = Modifier.height(if (isFullLengthCard) 168.dp else 220.dp)
+                modifier = Modifier.height(if (isFullLengthCard) 200.dp else 220.dp)
             )
 
             Text(
-                "${movie.vote_average.toString().substring(0, 3)}⭐",
+                "${movie.vote_average.toString().substring(0, 3)} ⭐",
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
                 color = DarkOrange,

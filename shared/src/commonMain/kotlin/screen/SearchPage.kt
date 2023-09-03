@@ -4,7 +4,9 @@ import ColorPrimary
 import Repository
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -62,7 +64,11 @@ fun SearchPage(repository: Repository) {
             }
         })
 
-        AnimatedVisibility(movies.isNotEmpty(), enter = fadeIn() + slideInVertically { 100 }) {
+        AnimatedVisibility(
+            movies.isNotEmpty(),
+            enter = fadeIn() + slideInVertically { 100 },
+            exit = fadeOut() + slideOutVertically { 100 }
+        ) {
             LazyColumn(
                 modifier = Modifier.fillMaxWidth().padding(8.dp, 16.dp, 8.dp),
             ) {

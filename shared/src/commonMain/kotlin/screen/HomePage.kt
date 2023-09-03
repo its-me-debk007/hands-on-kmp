@@ -19,7 +19,11 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,10 +40,11 @@ import model.Result
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun HomePage(movies: List<Result>) {
 
-    AnimatedVisibility(movies.isNotEmpty(), enter = fadeIn() + slideInVertically { 100 }) {
+    Box(Modifier.fillMaxSize()) {
         Column {
             Text(
                 "Discover",
@@ -49,12 +54,25 @@ fun HomePage(movies: List<Result>) {
                 modifier = Modifier.padding(top = 24.dp, start = 16.dp)
             )
 
-            LazyVerticalGrid(
-                modifier = Modifier.fillMaxWidth().padding(8.dp, 16.dp, 8.dp),
-                columns = GridCells.Adaptive(168.dp)
-            ) {
-                items(movies.size) { MovieCard(movies[it]) }
+            AnimatedVisibility(movies.isNotEmpty(), enter = fadeIn() + slideInVertically { 100 }) {
+                LazyVerticalGrid(
+                    modifier = Modifier.fillMaxWidth().padding(8.dp, 16.dp, 8.dp),
+                    columns = GridCells.Adaptive(168.dp)
+                ) {
+                    items(movies.size) { MovieCard(movies[it]) }
+                }
             }
+        }
+
+        FloatingActionButton(
+            onClick = {},
+            modifier = Modifier.padding(end = 16.dp, bottom = 16.dp).align(Alignment.BottomEnd)
+        ) {
+            Icon(
+                Icons.Filled.Search,
+                contentDescription = "Go to Search Page",
+                tint = Color.White
+            )
         }
     }
 }

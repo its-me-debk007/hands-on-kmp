@@ -11,7 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import model.Result
-import screen.SearchPage
+import screen.HomePage
 
 @Composable
 fun App() {
@@ -27,7 +27,7 @@ fun App() {
             Modifier.fillMaxSize().background(Background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SearchPage(repository)
+            HomePage(movies)
         }
     }
 }

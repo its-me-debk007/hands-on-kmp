@@ -41,9 +41,8 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
                 // Napier
                 implementation ("io.github.aakira:napier:2.6.1")
-                // Moko
-                api("dev.icerock.moko:mvvm-core:0.16.1") // only ViewModel, EventsDispatcher, Dispatchers.UI
-                api("dev.icerock.moko:mvvm-compose:0.16.1") // api mvvm-core, getViewModel for Compose Multiplatfrom
+                // Navigator
+                implementation("cafe.adriel.voyager:voyager-navigator:1.0.0-rc05")
             }
         }
         val androidMain by getting {

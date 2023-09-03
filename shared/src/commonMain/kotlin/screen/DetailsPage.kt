@@ -17,7 +17,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,57 +32,77 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.Result
+import util.ImagePlaceholder
 
-@Composable
-fun DetailsPage(movie: Result) {
-    val imgHeight = 300.dp
+data class DetailsPage(val movie: Result) : Screen {
 
-    Box(Modifier.fillMaxSize()) {
-        KamelImage(
-            asyncPainterResource("$IMG_BASE_URL/w500${movie.backdrop_path}"),
-            contentDescription = null,
-            contentScale = ContentScale.FillBounds,
-            onLoading = { ImagePlaceholder() },
-            onFailure = { ImagePlaceholder() },
-            modifier = Modifier.fillMaxWidth().height(imgHeight)
-        )
+    @Composable
+    override fun Content() {
+        val imgHeight = 300.dp
+        val navigator = LocalNavigator.current
 
-        Box(
-            Modifier.fillMaxWidth().height(imgHeight)
-                .background(Brush.verticalGradient(listOf(Color.Transparent, Background)))
-        )
-
-        Column(
-            Modifier.verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
+        Box(Modifier.fillMaxSize()) {
             KamelImage(
-                asyncPainterResource("$IMG_BASE_URL/w500${movie.poster_path}"),
-                contentDescription = movie.title,
+                asyncPainterResource("$IMG_BASE_URL/w500${movie.backdrop_path}"),
+                contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 onLoading = { ImagePlaceholder() },
                 onFailure = { ImagePlaceholder() },
-                modifier = Modifier.padding(top = 128.dp).size(200.dp, 280.dp)
+                modifier = Modifier.fillMaxWidth().height(imgHeight)
             )
 
-            Text(
-                movie.original_title,
-                color = Color.White,
-                fontSize = 24.sp,
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.fillMaxWidth().padding(top = 24.dp, start = 16.dp, end = 16.dp)
+            Box(
+                Modifier.fillMaxWidth().height(imgHeight)
+                    .background(Brush.verticalGradient(listOf(Color.Transparent, Background)))
             )
 
-            ExtraInfo("Original Language:", movie.original_language)
-            ExtraInfo("English Title:", movie.title)
-            ExtraInfo("Rating:", "${movie.vote_average.toString().substring(0, 3)} ⭐")
-            ExtraInfo("Overview:", movie.overview, false)
+            Column(
+                Modifier.verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                KamelImage(
+                    asyncPainterResource("$IMG_BASE_URL/w500${movie.poster_path}"),
+                    contentDescription = movie.title,
+                    contentScale = ContentScale.FillBounds,
+                    onLoading = { ImagePlaceholder() },
+                    onFailure = { ImagePlaceholder() },
+                    modifier = Modifier.padding(top = 128.dp).size(200.dp, 280.dp)
+                )
 
-            Spacer(Modifier.height(32.dp))
+                Text(
+                    movie.original_title,
+                    color = Color.White,
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(top = 24.dp, start = 16.dp, end = 16.dp)
+                )
+
+                ExtraInfo("Original Language:", movie.original_language)
+                ExtraInfo("English Title:", movie.title)
+                ExtraInfo("Rating:", "${movie.vote_average.toString().substring(0, 3)} ⭐")
+                ExtraInfo("Overview:", movie.overview, false)
+
+                Spacer(Modifier.height(32.dp))
+            }
+
+            FloatingActionButton(
+                onClick = { navigator?.pop() },
+                backgroundColor = Color.DarkGray.copy(alpha = 0.75f),
+                modifier = Modifier.padding(start = 16.dp, top = 16.dp).align(Alignment.TopStart)
+            ) {
+                Icon(
+                    Icons.Filled.ArrowBack,
+                    contentDescription = "Go Back",
+                    tint = Color.White,
+                )
+            }
         }
     }
 }

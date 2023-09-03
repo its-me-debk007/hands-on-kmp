@@ -1,4 +1,4 @@
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
@@ -13,9 +13,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import io.kamel.image.KamelImage
-import io.kamel.image.asyncPainterResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -27,7 +24,10 @@ fun App() {
         var showImage by remember { mutableStateOf(false) }
         val repository by remember { mutableStateOf(Repository()) }
 
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            Modifier.fillMaxWidth().background(Color.Blue),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Button(
                 onClick = {
                     showImage = !showImage
@@ -37,16 +37,18 @@ fun App() {
                 },
                 colors = ButtonDefaults.buttonColors(Color.Magenta)
             ) {
-                Text(greetingText, color = Color.White)
+                Text("Hello KMP!", color = Color.White)
             }
-            AnimatedVisibility(showImage) {
-                KamelImage(
-                    asyncPainterResource("https://unsplash.com/photos/Nhx2IVkw22s"),
-                    null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+//            AnimatedVisibility(showImage) {
+//                KamelImage(
+//                    asyncPainterResource("https://unsplash.com/photos/Nhx2IVkw22s"),
+//                    null,
+//                    contentScale = ContentScale.Crop,
+//                    modifier = Modifier.fillMaxWidth()
+//                )
+//            }
+
+            Text(greetingText, modifier = Modifier.background(color = Color.Green))
         }
     }
 }

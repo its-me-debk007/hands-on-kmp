@@ -1,5 +1,7 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 
 actual fun getPlatformName(): String = "Desktop"
 
@@ -11,4 +13,4 @@ fun AppPreview() {
     App()
 }
 
-actual fun initLogger() = Unit
+actual fun initLogger() = Napier.base(DebugAntilog())

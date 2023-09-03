@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
@@ -25,6 +26,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -71,7 +73,7 @@ data class DetailsPage(val movie: Result) : Screen {
                     contentScale = ContentScale.FillBounds,
                     onLoading = { ImagePlaceholder() },
                     onFailure = { ImagePlaceholder() },
-                    modifier = Modifier.padding(top = 128.dp).size(200.dp, 280.dp)
+                    modifier = Modifier.padding(top = 128.dp).size(200.dp, 280.dp).clip(RoundedCornerShape(16.dp))
                 )
 
                 Text(
@@ -86,7 +88,7 @@ data class DetailsPage(val movie: Result) : Screen {
 
                 ExtraInfo("Original Language:", movie.original_language)
                 ExtraInfo("English Title:", movie.title)
-                ExtraInfo("Rating:", "${movie.vote_average.toString().substring(0, 3)} ⭐")
+                ExtraInfo("Rating:", "${movie.vote_average.toString().substring(0, 3)} ✯")
                 ExtraInfo("Overview:", movie.overview, false)
 
                 Spacer(Modifier.height(32.dp))
@@ -94,13 +96,14 @@ data class DetailsPage(val movie: Result) : Screen {
 
             FloatingActionButton(
                 onClick = { navigator?.pop() },
-                backgroundColor = Color.DarkGray.copy(alpha = 0.75f),
-                modifier = Modifier.padding(start = 16.dp, top = 16.dp).align(Alignment.TopStart)
+                backgroundColor = Color.DarkGray,
+                modifier = Modifier.padding(start = 16.dp, top = 16.dp).size(40.dp).align(Alignment.TopStart)
             ) {
                 Icon(
                     Icons.Filled.ArrowBack,
                     contentDescription = "Go Back",
                     tint = Color.White,
+                    modifier = Modifier.size(22.dp)
                 )
             }
         }

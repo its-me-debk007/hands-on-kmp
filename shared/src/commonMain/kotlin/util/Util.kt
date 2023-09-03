@@ -57,7 +57,7 @@ fun MovieCard(
             )
 
             Text(
-                "${movie.vote_average.toString().substring(0, 3)} ⭐",
+                "${movie.vote_average.toString().substring(0, 3)} ✯",
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
                 color = DarkOrange,

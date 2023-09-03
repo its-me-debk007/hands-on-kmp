@@ -9,7 +9,7 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         title = "Hands-on-KMP",
         resizable = false,
-        state = WindowState(size = DpSize(500.dp, 680.dp)),
+        state = WindowState(size = DpSize(524.dp, 700.dp)),
     ) {
         MainView()
     }

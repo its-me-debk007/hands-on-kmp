@@ -21,6 +21,7 @@ class SharedViewModel(private val repository: Repository = RepositoryImpl()) : S
     fun getMovies() {
         coroutineScope.launch(Dispatchers.IO) {
             try {
+                _searchMoviesFlow.value = UiState.Loading
                 _getMoviesFlow.value = UiState.Success(repository.getMovies())
             } catch (e: Exception) {
                 _getMoviesFlow.value = UiState.Failure(e.message.toString())
@@ -31,6 +32,7 @@ class SharedViewModel(private val repository: Repository = RepositoryImpl()) : S
     fun searchMovies(query: String) {
         coroutineScope.launch(Dispatchers.IO) {
             try {
+                _searchMoviesFlow.value = UiState.Loading
                 _searchMoviesFlow.value = UiState.Success(repository.searchMovies(query))
             } catch (e: Exception) {
                 _searchMoviesFlow.value = UiState.Failure(e.message.toString())

@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.compose")
+    kotlin("plugin.serialization") version "1.8.21"
 }
 
 kotlin {
@@ -21,6 +22,8 @@ kotlin {
     }
 
     sourceSets {
+        val ktorVersion = "2.3.4"
+
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
@@ -28,6 +31,15 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                // Kamel
+                implementation("media.kamel:kamel-image:0.7.2")
+                // Ktor
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+                // Napier
+                implementation ("io.github.aakira:napier:2.6.1")
             }
         }
         val androidMain by getting {
@@ -35,6 +47,8 @@ kotlin {
                 api("androidx.activity:activity-compose:1.7.2")
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.10.1")
+                // Ktor Engine
+                implementation("io.ktor:ktor-client-android:$ktorVersion")
             }
         }
         val iosX64Main by getting
@@ -49,6 +63,8 @@ kotlin {
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.common)
+                // Ktor Engine
+                implementation("io.ktor:ktor-client-android:$ktorVersion")
             }
         }
     }

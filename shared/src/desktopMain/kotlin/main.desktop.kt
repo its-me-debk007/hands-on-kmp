@@ -10,3 +10,5 @@ actual fun getPlatformName(): String = "Desktop"
 fun AppPreview() {
     App()
 }
+
+actual fun initLogger() = Unit

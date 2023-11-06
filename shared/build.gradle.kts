@@ -42,7 +42,7 @@ kotlin {
                 // Napier
                 implementation ("io.github.aakira:napier:2.6.1")
                 // Navigator
-                implementation("cafe.adriel.voyager:voyager-navigator:1.0.0-rc08")
+                implementation("cafe.adriel.voyager:voyager-navigator:1.0.0-rc09")
             }
         }
         val androidMain by getting {

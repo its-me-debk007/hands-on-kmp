@@ -40,7 +40,7 @@ kotlin {
                 // Kotlinx Serialization
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
                 // Napier
-                implementation ("io.github.aakira:napier:2.7.0")
+                implementation ("io.github.aakira:napier:2.7.1")
                 // Navigator
                 implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
             }

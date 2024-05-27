@@ -32,7 +32,7 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 // Kamel
-                implementation("media.kamel:kamel-image:0.9.2-wasm")
+                implementation("media.kamel:kamel-image:0.9.5-wasm")
                 // Ktor
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")

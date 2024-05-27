@@ -73,7 +73,7 @@ kotlin {
                 // Ktor Engine
                 implementation("io.ktor:ktor-client-java:$ktorVersion")
                 // Coroutines
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.8.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.8.1")
             }
         }
     }

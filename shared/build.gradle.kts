@@ -47,7 +47,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.10.0")
+                api("androidx.activity:activity-compose:1.10.1")
                 api("androidx.appcompat:appcompat:1.7.0")
                 api("androidx.core:core-ktx:1.15.0")
                 // Ktor Engine

@@ -64,7 +64,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:3.4.1")
+                implementation("io.ktor:ktor-client-darwin:3.4.2")
             }
         }
         val desktopMain by getting {

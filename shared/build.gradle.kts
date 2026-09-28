@@ -49,7 +49,7 @@ kotlin {
             dependencies {
                 api("androidx.activity:activity-compose:1.13.0")
                 api("androidx.appcompat:appcompat:1.8.0")
-                api("androidx.core:core-ktx:1.19.0")
+                api("androidx.core:core-ktx:1.19.1")
                 // Ktor Engine
                 implementation("io.ktor:ktor-client-android:$ktorVersion")
             }

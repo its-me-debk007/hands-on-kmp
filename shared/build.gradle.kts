@@ -38,7 +38,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 // Kotlinx Serialization
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.12.0")
                 // Napier
                 implementation ("io.github.aakira:napier:2.7.1")
                 // Navigator
@@ -73,7 +73,7 @@ kotlin {
                 // Ktor Engine
                 implementation("io.ktor:ktor-client-java:$ktorVersion")
                 // Coroutines
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.11.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.12.0")
             }
         }
     }
